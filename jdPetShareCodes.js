@@ -10,7 +10,8 @@
 let PetShareCodes = [
   //ly-离-羊-妃
   'MTAxODc2NTEzNTAwMDAwMDAwMDAwMzA3Nw==@MTAxODc2NTE0NzAwMDAwMDAwMDAwNTQ3OQ==@MTAxODc2NTEzMzAwMDAwMDAxMDQzMzM2MQ==@MTE1NDUyMjEwMDAwMDAwNDAzNTc5NjE=',//账号一的好友shareCode,不同好友中间用@符号隔开
-  'MTAxODc2NTEzNTAwMDAwMDAwMDAwMzA3Nw==@MTAxODc2NTE0NzAwMDAwMDAwMDAwNTQ3OQ==@MTAxODc2NTEzMzAwMDAwMDAxMDQzMzM2MQ==@MTE1NDUyMjEwMDAwMDAwNDAzNTc5NjE=',//账号二的好友shareCode，不同好友中间用@符号隔开
+  //ly-离-梦-妃
+  'MTAxODc2NTEzNTAwMDAwMDAwMDAwMzA3Nw==@MTAxODc2NTE0NzAwMDAwMDAwMDAwNTQ3OQ==@MTE1NDUyMjEwMDAwMDAwMzk5NDg3MTk=@MTE1NDUyMjEwMDAwMDAwNDAzNTc5NjE=',//账号二的好友shareCode，不同好友中间用@符号隔开
 ]
 // 判断github action里面是否有东东萌宠互助码
 if (process.env.PETSHARECODES) {
