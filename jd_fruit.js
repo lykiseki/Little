@@ -62,8 +62,12 @@ const urlSchema = `openjd://virtual?params=%7B%20%22category%22:%20%22jump%22,%2
       console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
       if (!$.isLogin) {
         $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
-        $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
-        if ($.isNode()) await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
+
+        if ($.isNode()) {
+          await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
+        } else {
+          $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
+        }
         continue
       }
       message = '';
@@ -336,11 +340,20 @@ async function doTenWaterAgain() {
   await myCardInfoForFarm();
   const { fastCard, doubleCard, beanCard, signCard  } = $.myCardInfoRes;
   console.log(`背包已有道具:\n快速浇水卡:${fastCard === -1 ? '未解锁': fastCard + '张'}\n水滴翻倍卡:${doubleCard === -1 ? '未解锁': doubleCard + '张'}\n水滴换京豆卡:${beanCard === -1 ? '未解锁' : beanCard + '张'}\n加签卡:${signCard === -1 ? '未解锁' : signCard + '张'}\n`)
-  if (totalEnergy >= 100 && $.myCardInfoRes.doubleCard > 0) {
+  if (totalEnergy >= 100 && doubleCard > 0) {
     //使用翻倍水滴卡
-    for (let i = 0; i < new Array($.myCardInfoRes.doubleCard).fill('').length; i++) {
+    for (let i = 0; i < new Array(doubleCard).fill('').length; i++) {
       await userMyCardForFarm('doubleCard');
       console.log(`使用翻倍水滴卡结果:${JSON.stringify($.userMyCardRes)}`);
+    }
+    await initForFarm();
+    totalEnergy = $.farmInfo.farmUserPro.totalEnergy;
+  }
+  if (signCard > 0) {
+    //使用加签卡
+    for (let i = 0; i < new Array(signCard).fill('').length; i++) {
+      await userMyCardForFarm('signCard');
+      console.log(`使用加签卡结果:${JSON.stringify($.userMyCardRes)}`);
     }
     await initForFarm();
     totalEnergy = $.farmInfo.farmUserPro.totalEnergy;
@@ -363,17 +376,6 @@ async function doTenWaterAgain() {
       console.log(`您目前水滴:${totalEnergy}g,水滴换豆卡${$.myCardInfoRes.beanCard}张,暂不满足水滴换豆的条件,为您继续浇水`)
     }
   }
-  // if (Date.now() < new Date(activeEndTime).getTime()) {
-  //   if (totalEnergy >= 100 && $.myCardInfoRes.beanCard > 0) {
-  //     //使用水滴换豆卡
-  //     await userMyCardForFarm('beanCard');
-  //     console.log(`使用水滴换豆卡结果:${JSON.stringify($.userMyCardRes)}`);
-  //     if ($.userMyCardRes.code === '0') {
-  //       message += `【水滴换豆卡】获得${$.userMyCardRes.beanCount}个京豆\n`;
-  //     }
-  //   }
-  //   return
-  // }
   // if (totalEnergy > 100 && $.myCardInfoRes.fastCard > 0) {
   //   //使用快速浇水卡
   //   await userMyCardForFarm('fastCard');
@@ -651,20 +653,22 @@ async function masterHelpShare() {
       console.log(`助力失败::${JSON.stringify($.helpResult)}`);
     }
   }
-  let helpSuccessPeoplesKey = timeFormat() + $.farmInfo.farmUserPro.shareCode;
-  if (!$.getdata(helpSuccessPeoplesKey)) {
-    //把前一天的清除
-    $.setdata('', timeFormat(Date.now() - 24 * 60 * 60 * 1000) + $.farmInfo.farmUserPro.shareCode);
-    $.setdata('', helpSuccessPeoplesKey);
-  }
-  if (helpSuccessPeoples) {
-    if ($.getdata(helpSuccessPeoplesKey)) {
-      $.setdata($.getdata(helpSuccessPeoplesKey) + ',' + helpSuccessPeoples, helpSuccessPeoplesKey);
-    } else {
-      $.setdata(helpSuccessPeoples, helpSuccessPeoplesKey);
+  if ($.isLoon() || $.isQuanX() || $.isSurge()) {
+    let helpSuccessPeoplesKey = timeFormat() + $.farmInfo.farmUserPro.shareCode;
+    if (!$.getdata(helpSuccessPeoplesKey)) {
+      //把前一天的清除
+      $.setdata('', timeFormat(Date.now() - 24 * 60 * 60 * 1000) + $.farmInfo.farmUserPro.shareCode);
+      $.setdata('', helpSuccessPeoplesKey);
     }
+    if (helpSuccessPeoples) {
+      if ($.getdata(helpSuccessPeoplesKey)) {
+        $.setdata($.getdata(helpSuccessPeoplesKey) + ',' + helpSuccessPeoples, helpSuccessPeoplesKey);
+      } else {
+        $.setdata(helpSuccessPeoples, helpSuccessPeoplesKey);
+      }
+    }
+    helpSuccessPeoples = $.getdata(helpSuccessPeoplesKey);
   }
-  helpSuccessPeoples = $.getdata(helpSuccessPeoplesKey);
   if (helpSuccessPeoples && helpSuccessPeoples.length > 0) {
     message += `【您助力的好友👬】${helpSuccessPeoples.substr(0, helpSuccessPeoples.length - 1)}\n`;
   }
