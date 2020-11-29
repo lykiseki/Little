@@ -10,7 +10,7 @@
 let PlantBeanShareCodes = [
   //我-白白-博士
   'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q@zarbh2oaxmrcra7wpvtt5d2jraxz2rrz2natk6y@jc5p3tc7webr7cyahi7hheluai',//账号一的好友shareCode,不同好友中间用@符号隔开
-  //Ly-lulu-离心
+  //Ly-lulu-博士
   'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q@z3exehqfotyyyaw5dk7h5a72soq5mvbk5vj422a@jc5p3tc7webr7cyahi7hheluai',//账号二的好友shareCode，不同好友中间用@符号隔开
   //Ly
   'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q',//账号三的好友shareCode，不同好友中间用@符号隔开
