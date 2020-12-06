@@ -8,10 +8,10 @@
 // 同一个京东账号的好友互助码用@符号隔开,不同京东账号之间用&符号或者换行隔开,下面给一个示例
 // 如: 京东账号1的shareCode1@京东账号1的shareCode2&京东账号2的shareCode1@京东账号2的shareCode2
 let PlantBeanShareCodes = [
-  //我-白白-博士
-  'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q@zarbh2oaxmrcra7wpvtt5d2jraxz2rrz2natk6y@jc5p3tc7webr7cyahi7hheluai',//账号一的好友shareCode,不同好友中间用@符号隔开
-  //Ly-lulu-博士
-  'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q@z3exehqfotyyyaw5dk7h5a72soq5mvbk5vj422a@jc5p3tc7webr7cyahi7hheluai',//账号二的好友shareCode，不同好友中间用@符号隔开
+  //Ly-白白-丫丫
+  'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q@zarbh2oaxmrcra7wpvtt5d2jraxz2rrz2natk6y@mlrdw3aw26j3w3jqyvevd2zdmkxa3da7fy7h25q',//账号一的好友shareCode,不同好友中间用@符号隔开
+  //Ly-lulu-离心
+  'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q@z3exehqfotyyyaw5dk7h5a72soq5mvbk5vj422a@e7lhibzb3zek2lhndcy7dneubx72t4atag55tvq',//账号二的好友shareCode，不同好友中间用@符号隔开
   //Ly
   'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q',//账号三的好友shareCode，不同好友中间用@符号隔开
 ]
