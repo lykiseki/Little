@@ -33,10 +33,10 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
 //此此内容是IOS用户下载脚本到本地使用，填写互助码的地方，同一京东账号的好友互助码请使用@符号隔开。
 //下面给出两个账号的填写示例（iOS只支持2个京东账号）
 let shareCodes = [ // IOS本地脚本用户这个列表填入你要助力的好友的shareCode
-  //Ly-白白-丫丫
-  'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q@zarbh2oaxmrcra7wpvtt5d2jraxz2rrz2natk6y@mlrdw3aw26j3w3jqyvevd2zdmkxa3da7fy7h25q',//账号一的好友shareCode,不同好友中间用@符号隔开
-  //Ly-lulu-离心
-  'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q@z3exehqfotyyyaw5dk7h5a72soq5mvbk5vj422a@e7lhibzb3zek2lhndcy7dneubx72t4atag55tvq',//账号二的好友shareCode，不同好友中间用@符号隔开
+  //我-白白-博士
+  'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q@zarbh2oaxmrcra7wpvtt5d2jraxz2rrz2natk6y@jc5p3tc7webr7cyahi7hheluai',//账号一的好友shareCode,不同好友中间用@符号隔开
+  //Ly-lulu-博士
+  'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q@z3exehqfotyyyaw5dk7h5a72soq5mvbk5vj422a@jc5p3tc7webr7cyahi7hheluai',//账号二的好友shareCode，不同好友中间用@符号隔开
   //Ly
   'w5twvmn6thlgvgffr5mmzvaojsqttperzjydn2q',//账号三的好友shareCode，不同好友中间用@符号隔开
 ]
@@ -44,7 +44,7 @@ let currentRoundId = null;//本期活动id
 let lastRoundId = null;//上期id
 let roundList = [];
 let awardState = '';//上期活动的京豆是否收取
-let randomCount = 20;
+let randomCount = 1;
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {
@@ -62,8 +62,12 @@ let randomCount = 20;
       console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
       if (!$.isLogin) {
         $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
-        $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
-        if ($.isNode()) await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
+
+        if ($.isNode()) {
+          await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
+        } else {
+          $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
+        }
         continue
       }
       message = '';
@@ -649,7 +653,7 @@ function TotalBean() {
         "Connection": "keep-alive",
         "Cookie": cookie,
         "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0") : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
       }
     }
     $.post(options, (err, resp, data) => {
@@ -709,7 +713,7 @@ function taskUrl(function_id, body) {
       'Host': 'api.m.jd.com',
       'Accept': '*/*',
       'Connection': 'keep-alive',
-      'User-Agent': 'JD4iPhone/167249 (iPhone;iOS 13.6.1;Scale/3.00)',
+      'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0") : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
       'Accept-Language': 'zh-Hans-CN;q=1,en-CN;q=0.9',
       'Accept-Encoding': 'gzip, deflate, br',
       'Content-Type': "application/x-www-form-urlencoded"
