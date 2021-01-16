@@ -41,8 +41,8 @@ let shareCodes = [ // IOS本地脚本用户这个列表填入你要助力的好�
      //ly-离-羊-梦
   'MTAxODc2NTEzNTAwMDAwMDAwMDAwMzA3Nw==@MTAxODc2NTE0NzAwMDAwMDAwMDAwNTQ3OQ==@MTAxODc2NTEzMzAwMDAwMDAxMDQzMzM2MQ==@MTE1NDUyMjEwMDAwMDAwMzk5NDg3MTk=',
    //账号三的好友shareCode,不同好友的shareCode中间用@符号隔开
-   //ly-离-羊-梦
-  'MTAxODc2NTEzNTAwMDAwMDAwMDAwMzA3Nw==@MTAxODc2NTE0NzAwMDAwMDAwMDAwNTQ3OQ==@MTAxODc2NTEzMzAwMDAwMDAxMDQzMzM2MQ==@MTE1NDUyMjEwMDAwMDAwMzk5NDg3MTk=',
+   //ly--梦
+  'MTAxODc2NTEzNTAwMDAwMDAwMDAwMzA3Nw==@MTE1NDUyMjEwMDAwMDAwMzk5NDg3MTk=',
 ]
 let message = '', subTitle = '', option = {};
 let jdNotify = false;//是否关闭通知，false打开通知推送，true关闭通知推送
